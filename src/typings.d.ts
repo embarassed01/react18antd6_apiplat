@@ -18,3 +18,20 @@ declare module 'react-fittext';
 declare module 'bizcharts-plugin-slider';
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
+
+
+/** 
+ * 返回封装 
+ */
+interface BaseResponse<T> {
+    code: number;
+    data: T;
+    message?: string;
+}
+
+/** 
+ * 全局状态类型
+ */
+interface InitialState {
+    currentUser?: API.UserVO;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ApiinfoMapper">
+
+    <resultMap type="com.example.demo.model.entity.Apiinfo" id="BaseResultMap">
+       <id column="id" jdbcType="BIGINT" property="id"/>
+       <id column="name" jdbcType="VARCHAR" property="name"/>
+       <id column="description" jdbcType="VARCHAR" property="description"/>
+       <id column="url" jdbcType="VARCHAR" property="url"/>
+       <id column="requestHeader" jdbcType="VARCHAR" property="requestHeader"/>
+       <id column="responseHeader" jdbcType="VARCHAR" property="responseHeader"/>
+       <id column="status" jdbcType="INTEGER" property="status"/>
+       <id column="method" jdbcType="VARCHAR" property="method" />
+       <id column="userId" jdbcType="BIGINT" property="userId" />
+       <id column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+       <id column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+       <id column="isDelete" jdbcType="TINYINT" property="isDelete"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        url,requestHeader,
+        responseHeader,status,method,userId,
+        createTime,updateTime,isDelete
+    </sql>
+
+</mapper>

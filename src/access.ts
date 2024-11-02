@@ -1,9 +1,12 @@
 /**
  * @see https://umijs.org/docs/max/access#access
+ * 
+ * 权限管理
  * */
-export default function access(initialState: { currentUser?: API.CurrentUser } | undefined) {
+export default function access(initialState: InitialState | undefined) {
   const { currentUser } = initialState ?? {};
   return {
-    canAdmin: currentUser && currentUser.access === 'admin',
+    canUser: currentUser,
+    canAdmin: currentUser?.userRole === 'admin',
   };
 }

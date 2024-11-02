@@ -1,57 +1,23 @@
-# Ant Design Pro
+# API接口的后端工程
+## 技术选型
+springboot3.3+mybatisPlus+mysql数据库+redis缓存（存储会话用户登录态信息数据）
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+## 项目母板
+- 注解
+- aop切面
+- 跨域配置
+- knife4j接口文档
+- 增删改查：用户表操作 + API接口信息表操作
+- model.entity(数据表一一映射) / model.vo(视图) / model.dto.{apiinfo / user}(请求封装)
 
-## Environment Prepare
 
-Install `node_modules`:
+# API接口的前端
+## 技术选型
+umi4+antd6+react18+ts
 
-```bash
-npm install
-```
+## 项目母板
+- 登录页
+- 区分管理员和普通用户功能
+- API接口管理：
+- - 信息列表展示
 
-or
-
-```bash
-yarn
-```
-
-## Provided Scripts
-
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
-
-```bash
-npm start
-```
-
-### Build project
-
-```bash
-npm run build
-```
-
-### Check code style
-
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
