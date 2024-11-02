@@ -107,8 +107,8 @@ public class ApiinfoController {
      */
     @PostMapping("/update")
     public BaseResponse<Boolean> updateApiInfo(@RequestBody ApiinfoUpdateRequest apiinfoUpdateRequest, HttpServletRequest request) {
-        if (apiinfoUpdateRequest == null || apiinfoUpdateRequest.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        if (apiinfoUpdateRequest == null || apiinfoUpdateRequest.getId() == null || apiinfoUpdateRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求体为空或id为空或id非正常值");
         }
         Apiinfo apiinfo = new Apiinfo();
         BeanUtils.copyProperties(apiinfoUpdateRequest, apiinfo);
@@ -189,5 +189,5 @@ public class ApiinfoController {
     }
 
     // endregion
-    
+
 }
