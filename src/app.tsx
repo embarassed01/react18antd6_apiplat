@@ -7,7 +7,7 @@ import { history, Link } from '@umijs/max';
 import { requestConfig } from './requestConfig';
 import { getLoginUser } from './services/api-backend/userController';
 import { defaultSettings } from '@ant-design/pro-layout/es/defaultSettings';
-import InitialState from './.umi/plugin-initialState/@@initialState';
+// import InitialState from './.umi/plugin-initialState/@@initialState';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
