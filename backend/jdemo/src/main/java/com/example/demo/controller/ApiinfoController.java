@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,10 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.apiclientsdk.client.ApiClient;
 import com.example.demo.annotation.AuthCheck;
 import com.example.demo.common.BaseResponse;
 import com.example.demo.common.DeleteRequest;
 import com.example.demo.common.ErrorCode;
+import com.example.demo.common.IdRequest;
 import com.example.demo.common.ResultUtils;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.model.dto.apiinfo.ApiinfoAddRequest;
@@ -22,6 +23,7 @@ import com.example.demo.model.dto.apiinfo.ApiinfoQueryRequest;
 import com.example.demo.model.dto.apiinfo.ApiinfoUpdateRequest;
 import com.example.demo.model.entity.Apiinfo;
 import com.example.demo.model.entity.User;
+import com.example.demo.model.enums.ApiinfoStatusEnum;
 import com.example.demo.service.ApiinfoService;
 import com.example.demo.service.UserService;
 
@@ -46,6 +48,10 @@ public class ApiinfoController {
 
     @Resource 
     private UserService userService;
+
+    // 引入客户端模拟的实例
+    @Resource 
+    private ApiClient apiClient;
 
     // region 增删改查
 
@@ -189,5 +195,67 @@ public class ApiinfoController {
     }
 
     // endregion
+
+    /**
+     * 接口发布【仅管理员可操作】
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/online")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> onlineApiInfo(@RequestBody IdRequest idRequest, HttpServletRequest request) {
+        if (idRequest == null || idRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = idRequest.getId();
+        // 1.判断该接口是否存在
+        Apiinfo oldApiinfo = apiinfoService.getById(id);
+        if (oldApiinfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 2.判断该接口是否可以调用
+        //  直接利用 客户端SDK 模拟请求一下，能够成功就说明：可以调用该接口
+        com.example.apiclientsdk.model.User user = new com.example.apiclientsdk.model.User();
+        user.setUsername("test");
+        String username = apiClient.getUsernameByPost(user);
+        if (StringUtils.isBlank(username)) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
+        }
+        // 3.修改接口数据库中的状态字段为1
+        Apiinfo apiinfo = new Apiinfo();
+        apiinfo.setId(id);
+        apiinfo.setStatus(ApiinfoStatusEnum.ONLINE.getValue());
+        // 更新数据库
+        boolean result = apiinfoService.updateById(apiinfo);
+        return ResultUtils.success(result);
+    }
+
+    /**
+     * 接口下线 ⬇️[仅管理员可操作]
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/offline")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> offlineApiInfo(@RequestBody IdRequest idRequest, HttpServletRequest request) {
+        if (idRequest == null || idRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = idRequest.getId();
+        // 1.判断该接口是否存在
+        Apiinfo oldApiinfo = apiinfoService.getById(id);
+        if (oldApiinfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 2.修改接口数据库中的状态字段为0
+        Apiinfo apiinfo = new Apiinfo();
+        apiinfo.setId(id);
+        apiinfo.setStatus(ApiinfoStatusEnum.OFFLINE.getValue());
+        // 更新数据库
+        boolean result = apiinfoService.updateById(apiinfo);
+        return ResultUtils.success(result);
+    }
 
 }

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.apiclientsdk.model.User;
 import com.example.apiclientsdk.utils.SignUtils;
 import com.example.demo.common.ErrorCode;
 import com.example.demo.exception.BusinessException;
-import com.example.demo.model.entity.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -42,7 +42,7 @@ public class NameController {
         String body = request.getHeader("body");
         // TODO 实际情况应该是去数据库查是否已分配给用户，直接模拟 victory一个用户
         //   查出来：by accessKey -> secretKey
-        if (!accessKey.equals("victoryaccesskey")) {
+        if (!accessKey.equals("victory")) {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
         if (Long.parseLong(nonce) > 10000) {
@@ -53,7 +53,7 @@ public class NameController {
         if (!sign.equals(serverSign)) {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
-        // if (!accessKey.equals("victoryaccesskey") || !secretKey.equals("victorysecretkey")) {
+        // if (!accessKey.equals("victory") || !secretKey.equals("victorysecretkey")) {
         //     throw new RuntimeException("无权限");
         // }
         return "POST 用户名字是" + user.getUsername();

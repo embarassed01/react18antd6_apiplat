@@ -45,6 +45,6 @@ knife4j:
 
 api: 
   client:
-    access-key: victoryaccesskey
+    access-key: victory
     secret-key: victorysecretkey
 

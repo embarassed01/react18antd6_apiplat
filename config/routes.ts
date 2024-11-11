@@ -12,7 +12,7 @@ export default [
     access: 'canAdmin',
     routes: [
       // { path: '/admin', redirect: '/admin/list' },
-      { path: '/admin/apiinfo', name: 'API接口管理', component: './ApiInfo' },
+      { path: '/admin/apiinfo', name: 'API接口管理', component: './Admin/ApiInfo' },
     ],
   },
   // { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },

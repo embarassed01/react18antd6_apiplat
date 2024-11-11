@@ -13,7 +13,7 @@ import {
 import '@umijs/max';
 import { Button, Drawer, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import { addApiInfo, deleteApiInfo, listApiInfoByPage, updateApiInfo } from '@/services/api-backend/apiinfoController';
+import { addApiInfo, deleteApiInfo, listApiInfoByPage, offlineApiInfo, onlineApiInfo, updateApiInfo } from '@/services/api-backend/apiinfoController';
 import CreateModal from './components/CreateModal';
 import UpdateModal from './components/UpdateModal';
 
@@ -102,6 +102,52 @@ const TableList: React.FC = () => {
     } catch (error: any) {
       hide();
       message.error('删除失败, ' + error.message);
+      return false;
+    }
+  };
+
+  /**
+   * 接口发布
+   * @param record 
+   * @returns 
+   */
+  const handleOnline = async (record: API.IdRequest) => {
+    const hide = message.loading('发布中');
+    if (!record) return true;
+    try {
+      await onlineApiInfo({
+        id: record.id,
+      });
+      hide();
+      message.success('操作成功');
+      actionRef.current?.reload();
+      return true;
+    } catch (error: any) {
+      hide();
+      message.error('操作失败, ' + error.message);
+      return false;
+    }
+  };
+
+  /**
+   * 接口下线
+   * @param record 
+   * @returns 
+   */
+  const handleOffline = async (record: API.IdRequest) => {
+    const hide = message.loading('下线中');
+    if (!record) return true;
+    try {
+      await offlineApiInfo({
+        id: record.id,
+      });
+      hide();
+      message.success('操作成功');
+      actionRef.current?.reload();
+      return true;
+    } catch (error: any) {
+      hide();
+      message.error('操作失败, ' + error.message);
       return false;
     }
   };
@@ -215,14 +261,36 @@ const TableList: React.FC = () => {
         >
           修改
         </a>,
-        <a
+
+        record.status === 0 ? <a
+        key="config"
+        onClick={() => {
+          handleOnline(record);
+        }}
+        >
+         发布
+        </a> : 
+        <Button
+          type='text'
+          danger
+          key="config"
+          onClick={() => {
+            handleOffline(record);
+          }}
+        >
+          下线
+        </Button>,
+
+        <Button
+        type="text"
+        danger
         key="config"
         onClick={() => {
           handleRemove(record);
         }}
         >
           删除
-        </a>,
+        </Button>,
       ],
     },
   ];

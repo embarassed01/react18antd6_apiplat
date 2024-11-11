@@ -75,6 +75,30 @@ export async function listApiInfoByPage(
   });
 }
 
+/** 此处后端没有提供注释 POST /apiinfo/offline */
+export async function offlineApiInfo(body: API.IdRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponseBoolean>('/apiinfo/offline', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 此处后端没有提供注释 POST /apiinfo/online */
+export async function onlineApiInfo(body: API.IdRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponseBoolean>('/apiinfo/online', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 POST /apiinfo/update */
 export async function updateApiInfo(
   body: API.ApiinfoUpdateRequest,

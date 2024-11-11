@@ -125,6 +125,10 @@ declare namespace API {
     id: number;
   };
 
+  type IdRequest = {
+    id?: number;
+  };
+
   type listApiInfoByPageParams = {
     apiinfoQueryRequest: ApiinfoQueryRequest;
   };
