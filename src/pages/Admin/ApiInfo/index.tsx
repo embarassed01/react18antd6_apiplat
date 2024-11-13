@@ -31,8 +31,9 @@ const TableList: React.FC = () => {
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();  // actionRef能够拿到ProTable组件的控制权！！
-  const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
+  const [currentRow, setCurrentRow] = useState<API.Apiinfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
+  // const [currentId, setCurrentId] = useState<number>();
 
   /**
    * @en-US Add node
@@ -65,9 +66,13 @@ const TableList: React.FC = () => {
    * @param fields
    */
   const handleUpdate = async (fields: API.Apiinfo) => {
+    if (!currentRow) {
+      return;
+    }
     const hide = message.loading('修改中');
     try {
       await updateApiInfo({
+        id: currentRow.id,
         ...fields,
       });
       hide();
@@ -161,8 +166,8 @@ const TableList: React.FC = () => {
     {
       title: 'id',
       dataIndex: 'id',
-      // valueType: 'index',
-      valueType: 'number',
+      valueType: 'index',  // index意味着：在传递的时候会屏蔽掉，因为是表格的行序号，不是数据库表的id项
+      // valueType: 'number',
     },
     {
       title: '接口名称',
@@ -201,9 +206,14 @@ const TableList: React.FC = () => {
       }
     },
     {
+      title: '请求参数',
+      dataIndex: 'requestParams',
+      valueType: 'jsonCode',
+    },
+    {
       title: '请求头',
       dataIndex: 'requestHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
       formItemProps: {
         rules: [{
           required: true,
@@ -213,7 +223,7 @@ const TableList: React.FC = () => {
     {
       title: '响应头',
       dataIndex: 'responseHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',  // textarea
       formItemProps: {
         rules: [{
           required: true,

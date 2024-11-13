@@ -52,6 +52,16 @@ public class User implements Serializable {
      * 用户密码
      */
     private String userPassword;  
+
+    /**
+     * 签名accessKey
+     */
+    private String accessKey;
+
+    /**
+     * 签名secretKey
+     */
+    private String secretKey;
       
 
     private Date createTime;

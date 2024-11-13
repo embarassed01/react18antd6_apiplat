@@ -4,6 +4,7 @@ declare namespace API {
     name?: string;
     description?: string;
     url?: string;
+    requestParams?: string;
     requestHeader?: string;
     responseHeader?: string;
     status?: number;
@@ -18,9 +19,15 @@ declare namespace API {
     name?: string;
     description?: string;
     url?: string;
+    requestParams?: string;
     requestHeader?: string;
     responseHeader?: string;
     method?: string;
+  };
+
+  type ApiinfoInvokeRequest = {
+    id?: number;
+    requestParams?: string;
   };
 
   type ApiinfoQueryRequest = {
@@ -32,6 +39,7 @@ declare namespace API {
     name?: string;
     description?: string;
     url?: string;
+    requestParams?: string;
     requestHeader?: string;
     responseHeader?: string;
     status?: number;
@@ -44,6 +52,7 @@ declare namespace API {
     name?: string;
     description?: string;
     url?: string;
+    requestParams?: string;
     requestHeader?: string;
     responseHeader?: string;
     status?: number;
@@ -81,6 +90,13 @@ declare namespace API {
   type BaseResponseLong = {
     code?: number;
     data?: number;
+    message?: string;
+    description?: string;
+  };
+
+  type BaseResponseObject = {
+    code?: number;
+    data?: Record<string, any>;
     message?: string;
     description?: string;
   };
@@ -186,6 +202,8 @@ declare namespace API {
     gender?: number;
     userRole?: string;
     userPassword?: string;
+    accessKey?: string;
+    secretKey?: string;
     createTime?: string;
     updateTime?: string;
     isDelete?: number;

@@ -10,6 +10,8 @@
        <id column="userAvatar" jdbcType="VARCHAR" property="userAvatar"/>
        <id column="userRole" jdbcType="VARCHAR" property="userRole"/>
        <id column="userPassword" jdbcType="VARCHAR" property="userPassword" />
+       <id column="accessKey" jdbcType="VARCHAR" property="accessKey" />
+       <id column="secretKey" jdbcType="VARCHAR" property="secretKey" />
        <id column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
        <id column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
        <id column="isDelete" jdbcType="TINYINT" property="isDelete"/>
@@ -18,7 +20,7 @@
     <sql id="Base_Column_List">
         id,userName,userAccount,
         gender,userAvatar,
-        userRole,userPassword,
+        userRole,userPassword,accessKey,secretKey,
         createTime,updateTime,isDelete
     </sql>
 

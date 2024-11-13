@@ -41,6 +41,21 @@ export async function getApiInfoById(
   });
 }
 
+/** 此处后端没有提供注释 POST /apiinfo/invoke */
+export async function invokeApiInfo(
+  body: API.ApiinfoInvokeRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseObject>('/apiinfo/invoke', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /apiinfo/list */
 export async function listApiInfo(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

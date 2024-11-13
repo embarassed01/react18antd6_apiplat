@@ -41,6 +41,7 @@ public class NameController {
         String sign = request.getHeader("sign");
         String body = request.getHeader("body");
         // TODO 实际情况应该是去数据库查是否已分配给用户，直接模拟 victory一个用户
+        //   模拟接口：accessKey和secretKey需要改成从数据库调用
         //   查出来：by accessKey -> secretKey
         if (!accessKey.equals("victory")) {
             throw new BusinessException(ErrorCode.NO_AUTH);

@@ -17,8 +17,10 @@ import com.example.demo.common.DeleteRequest;
 import com.example.demo.common.ErrorCode;
 import com.example.demo.common.IdRequest;
 import com.example.demo.common.ResultUtils;
+import com.example.demo.constant.UserConstant;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.model.dto.apiinfo.ApiinfoAddRequest;
+import com.example.demo.model.dto.apiinfo.ApiinfoInvokeRequest;
 import com.example.demo.model.dto.apiinfo.ApiinfoQueryRequest;
 import com.example.demo.model.dto.apiinfo.ApiinfoUpdateRequest;
 import com.example.demo.model.entity.Apiinfo;
@@ -26,6 +28,7 @@ import com.example.demo.model.entity.User;
 import com.example.demo.model.enums.ApiinfoStatusEnum;
 import com.example.demo.service.ApiinfoService;
 import com.example.demo.service.UserService;
+import com.google.gson.Gson;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -155,7 +158,7 @@ public class ApiinfoController {
      * @param apiinfoQueryRequest
      * @return
      */
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     @GetMapping("/list")
     public BaseResponse<List<Apiinfo>> listApiInfo(ApiinfoQueryRequest apiinfoQueryRequest) {
         Apiinfo apiinfoQuery = new Apiinfo();
@@ -203,7 +206,7 @@ public class ApiinfoController {
      * @return
      */
     @PostMapping("/online")
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> onlineApiInfo(@RequestBody IdRequest idRequest, HttpServletRequest request) {
         if (idRequest == null || idRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -238,7 +241,7 @@ public class ApiinfoController {
      * @return
      */
     @PostMapping("/offline")
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> offlineApiInfo(@RequestBody IdRequest idRequest, HttpServletRequest request) {
         if (idRequest == null || idRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -256,6 +259,38 @@ public class ApiinfoController {
         // 更新数据库
         boolean result = apiinfoService.updateById(apiinfo);
         return ResultUtils.success(result);
+    }
+
+    /**
+     * 测试调用
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/invoke")
+    public BaseResponse<Object> invokeApiInfo(@RequestBody ApiinfoInvokeRequest apiinfoInvokeRequest, HttpServletRequest request) {
+        if (apiinfoInvokeRequest == null || apiinfoInvokeRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = apiinfoInvokeRequest.getId();
+        String userRequestParams = apiinfoInvokeRequest.getRequestParams();
+        // 判断是否存在
+        Apiinfo oldApiinfo = apiinfoService.getById(id);
+        if (oldApiinfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        if (oldApiinfo.getStatus() == ApiinfoStatusEnum.OFFLINE.getValue()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口已关闭");
+        }
+        // 
+        User user = userService.getLoginUser(request);
+        String accessKey = user.getAccessKey();
+        String secretKey = user.getSecretKey();
+        ApiClient tempClient = new ApiClient(accessKey, secretKey);
+        Gson gson = new Gson();
+        com.example.apiclientsdk.model.User moniUser = gson.fromJson(userRequestParams, com.example.apiclientsdk.model.User.class);
+        String userNameByPost = tempClient.getUsernameByPost(moniUser);  // TODO 需要优化
+        return ResultUtils.success(userNameByPost);
     }
 
 }
