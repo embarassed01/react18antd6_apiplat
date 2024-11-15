@@ -21,6 +21,12 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/name")
 public class NameController {
+
+    @GetMapping("/name")
+    public String getNamenameByGet(String name, HttpServletRequest request) {
+        System.out.println(request.getHeader("yupi"));
+        return "你的名字是" + name;
+    }
     
     @GetMapping("/")
     public String getNameByGet(String name, HttpServletRequest request) {
@@ -57,6 +63,7 @@ public class NameController {
         // if (!accessKey.equals("victory") || !secretKey.equals("victorysecretkey")) {
         //     throw new RuntimeException("无权限");
         // }
-        return "POST 用户名字是" + user.getUsername();
+        String result = "POST 用户名字是" + user.getUsername();
+        return result;
     }
 }

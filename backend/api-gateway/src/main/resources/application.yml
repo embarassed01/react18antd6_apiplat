@@ -1,0 +1,44 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      # - id: after_route
+      #   uri: https://www.baidu.com
+      #   predicates:
+      #   - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+      # - id: path_route
+      #   uri: https://yupi.icu
+      #   predicates:
+      #   - Path=/yupi/**
+      # - id: path_route2
+      #   uri: https://baidu.com
+      #   predicates:
+      #   - Path=/baidu/**
+      # 过滤器：可实现流量染色，添加请求头标识，必须有yupi这个用户标识【当然这只是流量染色的一种实现方式】
+      - id: add_request_header_route
+        uri: http://localhost:8123
+        predicates:
+        - Path=/api/name/**
+        filters:
+        - AddRequestHeader=yupi, swag  # 增加请求头
+        - AddRequestParameter=name, dog  # 增加请求参数
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin # 去重【场景 跨域：在经过多个后端时，请求头会添加多个重复跨域标识，反而无法实现跨域】
+        - name: CircuitBreaker  # 定义一个降级规则
+          args:
+            name: myCircuitBreaker
+            fallbackUri: forward:/fallback
+      - id: yupi-fallback
+        uri: https://yupi.icu
+        predicates:
+        - Path=/fallback
+        
+logging:
+  level:
+    org:
+      springframework: 
+        cloud: 
+          gateway: trace  # 开启日志，可以查看具体执行的是哪条规则
