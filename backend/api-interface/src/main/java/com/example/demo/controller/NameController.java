@@ -28,13 +28,13 @@ public class NameController {
         return "你的名字是" + name;
     }
     
-    @GetMapping("/")
+    @GetMapping("/get")
     public String getNameByGet(String name, HttpServletRequest request) {
         // http://localhost:8123/api/name/?name=yupi
         return "你的名字是" + name;
     }
 
-    @PostMapping("/")
+    @PostMapping("/post")
     public String getNameByPost(@RequestParam String name) {
         return "POST 你的名字是" + name;
     }
@@ -55,7 +55,10 @@ public class NameController {
         if (Long.parseLong(nonce) > 10000) {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
-        // todo 时间和当前时间不能超过5分钟
+        // TODO 时间和当前时间不能超过5分钟
+        // if (timestamp) {
+        // }
+        // TODO 实际情况中是从数据库中查出 secretKey
         String serverSign = SignUtils.genSign(body, "victorysecretkey");
         if (!sign.equals(serverSign)) {
             throw new BusinessException(ErrorCode.NO_AUTH);
@@ -63,6 +66,7 @@ public class NameController {
         // if (!accessKey.equals("victory") || !secretKey.equals("victorysecretkey")) {
         //     throw new RuntimeException("无权限");
         // }
+        // TODO 调用次数➕1 
         String result = "POST 用户名字是" + user.getUsername();
         return result;
     }
