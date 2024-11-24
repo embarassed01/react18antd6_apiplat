@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.demo.model.entity.UserInterfaceInfo;
+import com.example.apicommon.model.entity.Apiinfo;
+import com.example.apicommon.model.entity.User;
+import com.example.apicommon.model.entity.UserInterfaceInfo;
 
 public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
     
@@ -15,3 +17,5 @@ public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
      */
     boolean invokeCount(long interfaceInfoId, long userId);
 }
+
+

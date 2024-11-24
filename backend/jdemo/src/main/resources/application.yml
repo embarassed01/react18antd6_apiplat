@@ -77,9 +77,17 @@ mybatis-plus:
       logic-delete-field: isDelete  # 全局逻辑删除的实体字段
       logic-delete-value: 1  # 逻辑已删除值（默认为1）
       logic-not-delete-value: 0  # 逻辑未删除值（默认0）
-
+# 这段配置仅供测试，实际应该根据登录用户获取对应的ak，sk
 api: 
   client: 
     access-key: victory
     secret-key: victorysecretkey
+dubbo:
+  application:
+      name: history-server
+      logger: slf4j
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    base-package: com.example.demo.service.impl
 

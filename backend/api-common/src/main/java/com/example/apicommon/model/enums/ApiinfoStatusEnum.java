@@ -1,4 +1,4 @@
-package com.example.demo.model.enums;
+package com.example.apicommon.model.enums;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,3 +35,4 @@ public enum ApiinfoStatusEnum {
         return Arrays.stream(values()).map(item -> item.value).collect(Collectors.toList());
     }
 }
+

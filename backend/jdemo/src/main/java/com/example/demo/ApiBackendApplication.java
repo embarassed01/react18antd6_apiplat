@@ -3,8 +3,9 @@ package com.example.demo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 
 /**
  * springboot app run main entry
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableScheduling
 @SpringBootApplication
+@EnableDubbo
 @MapperScan("com.example.demo.mapper")
 public class ApiBackendApplication {
 

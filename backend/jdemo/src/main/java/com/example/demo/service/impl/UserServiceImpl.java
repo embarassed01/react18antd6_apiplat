@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.common.ErrorCode;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.mapper.UserMapper;
-import com.example.demo.model.entity.User;
+import com.example.apicommon.model.entity.User;
 import com.example.demo.service.UserService;
 
 import cn.hutool.core.util.RandomUtil;

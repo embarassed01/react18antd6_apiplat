@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.apicommon.model.entity.UserInterfaceInfo;
+import com.example.demo.service.UserInterfaceInfoService;
 import com.example.demo.annotation.AuthCheck;
 import com.example.demo.common.BaseResponse;
 import com.example.demo.common.DeleteRequest;
@@ -20,9 +22,7 @@ import com.example.demo.exception.BusinessException;
 import com.example.demo.model.dto.userinterfaceinfo.UserInterfaceInfoAddRequest;
 import com.example.demo.model.dto.userinterfaceinfo.UserInterfaceInfoQueryRequest;
 import com.example.demo.model.dto.userinterfaceinfo.UserInterfaceInfoUpdateRequest;
-import com.example.demo.model.entity.User;
-import com.example.demo.model.entity.UserInterfaceInfo;
-import com.example.demo.service.UserInterfaceInfoService;
+import com.example.apicommon.model.entity.User;
 import com.example.demo.service.UserService;
 
 import jakarta.annotation.Resource;

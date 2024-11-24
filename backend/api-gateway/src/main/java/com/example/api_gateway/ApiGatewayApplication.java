@@ -1,18 +1,36 @@
 package com.example.api_gateway;
 
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import com.example.demo.provider.DemoService;
+
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableDubbo
 public class ApiGatewayApplication {
 
+	@DubboReference
+	private DemoService demoService;
+
 	public static void main(String[] args) {
-		SpringApplication.run(ApiGatewayApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(ApiGatewayApplication.class, args);
+		
+		ApiGatewayApplication application = context.getBean(ApiGatewayApplication.class);
+		String result = application.doSayHello("victory");
+		System.out.println("result: " + result);
+	}
+
+	public String doSayHello(String name) {
+		return demoService.sayHello(name);
 	}
 
 	// @Bean

@@ -5,11 +5,13 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.demo.mapper.UserInterfaceInfoMapper;
+import com.example.apicommon.model.entity.Apiinfo;
+import com.example.apicommon.model.entity.User;
+import com.example.apicommon.model.entity.UserInterfaceInfo;
+import com.example.demo.service.UserInterfaceInfoService;
 import com.example.demo.common.ErrorCode;
 import com.example.demo.exception.BusinessException;
-import com.example.demo.mapper.UserInterfaceInfoMapper;
-import com.example.demo.model.entity.UserInterfaceInfo;
-import com.example.demo.service.UserInterfaceInfoService;
 
 /**
  * @description 
@@ -44,7 +46,7 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
         updateWrapper.setSql("leftNum = leftNum - 1, totalNum = totalNum + 1");  // TODO 需要加锁！！
         return this.update(updateWrapper);
         /*
-         经mock数据sql测试，🆗
+        经mock数据sql测试，🆗
         INSERT INTO api.user_interface_info (userId, interfaceInfoId, totalNum, leftNum) VALUES(1, 1, 2, 5);
         update api.user_interface_info  set leftNum = leftNum -1, totalNum = totalNum + 1 where interfaceInfoId  = 1 and userId =1;
          */

@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.integration.IntegrationProperties.
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.demo.service.ApiinfoService;
 import com.example.demo.common.ErrorCode;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.mapper.ApiinfoMapper;
-import com.example.demo.model.entity.Apiinfo;
-import com.example.demo.service.ApiinfoService;
+import com.example.apicommon.model.entity.Apiinfo;
 
 /**
  * @description 针对apiinfo表的数据库操作Service的实现

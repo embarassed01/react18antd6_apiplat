@@ -49,9 +49,9 @@ public class NameController {
         // TODO 实际情况应该是去数据库查是否已分配给用户，直接模拟 victory一个用户
         //   模拟接口：accessKey和secretKey需要改成从数据库调用
         //   查出来：by accessKey -> secretKey
-        if (!accessKey.equals("victory")) {
-            throw new BusinessException(ErrorCode.NO_AUTH);
-        }
+        // if (!accessKey.equals("victory")) {
+        //     throw new BusinessException(ErrorCode.NO_AUTH);
+        // }
         if (Long.parseLong(nonce) > 10000) {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
@@ -59,10 +59,10 @@ public class NameController {
         // if (timestamp) {
         // }
         // TODO 实际情况中是从数据库中查出 secretKey
-        String serverSign = SignUtils.genSign(body, "victorysecretkey");
-        if (!sign.equals(serverSign)) {
-            throw new BusinessException(ErrorCode.NO_AUTH);
-        }
+        // String serverSign = SignUtils.genSign(body, "victorysecretkey");
+        // if (!sign.equals(serverSign)) {
+        //     throw new BusinessException(ErrorCode.NO_AUTH);
+        // }
         // if (!accessKey.equals("victory") || !secretKey.equals("victorysecretkey")) {
         //     throw new RuntimeException("无权限");
         // }

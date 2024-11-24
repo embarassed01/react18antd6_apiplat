@@ -31,7 +31,11 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
+		<dependency>
+			<groupId>com.example.apicommon</groupId>
+			<artifactId>apicommon</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 		<!-- 引入自开发的starter配置jar包 SDK,然后这样就可以在application.yml中自动识别 -->
 		<dependency>
 			<groupId>com.example</groupId>

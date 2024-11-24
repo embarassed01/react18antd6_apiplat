@@ -1,4 +1,4 @@
-package com.example.demo.model.entity;
+package com.example.apicommon.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -56,3 +56,4 @@ public class UserInterfaceInfo implements Serializable {
     @TableLogic
     private Integer isDelete;
 }
+

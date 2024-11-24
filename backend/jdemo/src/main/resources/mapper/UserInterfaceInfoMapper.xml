@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserInterfaceInfoMapper">
 
-    <resultMap type="com.example.demo.model.entity.UserInterfaceInfo" id="BaseResultMap">
+    <resultMap type="com.example.apicommon.model.entity.UserInterfaceInfo" id="BaseResultMap">
        <id column="id" jdbcType="BIGINT" property="id"/>
        <id column="userId" jdbcType="BIGINT" property="userId"/>
        <id column="interfaceInfoId" jdbcType="BIGINT" property="interfaceInfoId"/>
@@ -19,5 +19,8 @@
         totalNum,leftNum,status,
         createTime,updateTime,isDelete
     </sql>
+    <select id="listTopInvokeInterfaceInfo" resultType="com.example.apicommon.model.entity.UserInterfaceInfo">
+        select interfaceInfoId, sum(totalNum) as totalNum from user_interface_info group by interfaceInfoId order by totalNum desc limit #{limit};
+    </select>
 
 </mapper>

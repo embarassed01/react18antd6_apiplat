@@ -3,7 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.demo.model.entity.User;
+import com.example.apicommon.model.entity.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -48,3 +48,4 @@ public interface UserService extends IService<User> {
      */
     boolean isAdmin(HttpServletRequest request);
 }
+

@@ -15,6 +15,7 @@ export default [
     routes: [
       // { path: '/admin', redirect: '/admin/list' },
       { path: '/admin/apiinfo', name: 'API接口管理', component: './Admin/ApiInfo' },
+      { name: '接口分析', icon: 'analysis', path: '/admin/interface_analysis', component: './Admin/InterfaceAnalysis' },
     ],
   },
   // { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },

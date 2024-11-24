@@ -45,3 +45,9 @@ logging:
       springframework: 
         cloud: 
           gateway: trace  # 开启日志，可以查看具体执行的是哪条规则
+dubbo:
+  application:
+      name: test-service
+      logger: slf4j
+  registry:
+    address: zookeeper://127.0.0.1:2181

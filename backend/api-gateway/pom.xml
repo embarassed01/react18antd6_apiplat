@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.5</version>
+		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -29,9 +29,14 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
+		<dubbo.version>3.3.1</dubbo.version>
 	</properties>
 	<dependencies>
-
+		<dependency>
+			<groupId>com.example.apicommon</groupId>
+			<artifactId>apicommon</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 		<!-- 引入自开发的starter配置jar包 SDK,然后这样就可以在application.yml中自动识别 -->
 		<dependency>
 			<groupId>com.example</groupId>
@@ -43,6 +48,22 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway-mvc</artifactId>
 		</dependency> -->
+
+		<!-- dubbo -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+			<version>${dubbo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-zookeeper-spring-boot-starter</artifactId>
+			<version>${dubbo.version}</version>
+        </dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

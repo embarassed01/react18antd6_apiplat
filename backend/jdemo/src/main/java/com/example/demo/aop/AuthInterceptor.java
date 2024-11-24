@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.example.demo.annotation.AuthCheck;
 import com.example.demo.common.ErrorCode;
 import com.example.demo.exception.BusinessException;
-import com.example.demo.model.entity.User;
+import com.example.apicommon.model.entity.User;
 import com.example.demo.service.UserService;
 
 import jakarta.annotation.Resource;

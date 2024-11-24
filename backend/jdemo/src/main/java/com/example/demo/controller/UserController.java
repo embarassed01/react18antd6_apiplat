@@ -24,7 +24,7 @@ import com.example.demo.model.dto.user.UserLoginRequest;
 import com.example.demo.model.dto.user.UserQueryRequest;
 import com.example.demo.model.dto.user.UserRegisterRequest;
 import com.example.demo.model.dto.user.UserUpdateRequest;
-import com.example.demo.model.entity.User;
+import com.example.apicommon.model.entity.User;
 import com.example.demo.model.vo.UserVO;
 import com.example.demo.service.UserService;
 
